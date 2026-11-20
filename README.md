@@ -4,6 +4,16 @@ A modern, high-performance portfolio website tailored for a **Machine Learning &
 
 ---
 
+## 🌐 Live Production Deployment
+
+- **Live Portfolio**: **[https://portfolio-smoky-mu-wqa5kgmmol.vercel.app](https://portfolio-smoky-mu-wqa5kgmmol.vercel.app)**
+- **Live Admin Portal**: **[https://portfolio-smoky-mu-wqa5kgmmol.vercel.app/admin.html](https://portfolio-smoky-mu-wqa5kgmmol.vercel.app/admin.html)**
+- **Cloud Database**: Powered by **Cloudflare D1 (Serverless SQLite)**
+- **Hosting**: **Vercel Edge Network** with Serverless API Routes
+- **Version Control**: [GitHub Repository](https://github.com/adityathete/portfolio)
+
+---
+
 ## 🌟 Highlights & Features
 
 - **Cyber/AI Aesthetic**: Sleek dark mode design with glowing emerald and cyan accents, neural particle network background, and glassmorphic cards.
