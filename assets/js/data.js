@@ -307,15 +307,58 @@ const DataManager = {
     return JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO_DATA));
   },
 
-  // Save current data into localStorage
-  saveData: function(data) {
+  // Save current data into localStorage and sync to Cloudflare D1 via /api/portfolio
+  saveData: function(data, callback) {
+    let localSaved = false;
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      return true;
+      localSaved = true;
     } catch (e) {
       console.error("Failed to save to localStorage:", e);
-      return false;
     }
+
+    // Attempt cloud sync to /api/portfolio if hosted (Vercel / Cloudflare)
+    if (window.location.protocol.startsWith('http')) {
+      const pin = data.settings?.adminPin || "aditya2026";
+      fetch('/api/portfolio', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-pin': pin
+        },
+        body: JSON.stringify({ data: data })
+      })
+      .then(res => res.json())
+      .then(resData => {
+        if (callback) callback(null, resData);
+      })
+      .catch(err => {
+        console.warn('Backend cloud sync not reachable or local mode:', err);
+        if (callback) callback(null, { storage: 'local', message: 'Saved locally.' });
+      });
+    } else if (callback) {
+      callback(null, { storage: 'local', message: 'Saved locally.' });
+    }
+
+    return localSaved;
+  },
+
+  // Fetch latest data from Cloudflare D1 backend (/api/portfolio)
+  fetchFromCloud: async function() {
+    if (!window.location.protocol.startsWith('http')) return null;
+    try {
+      const res = await fetch('/api/portfolio');
+      if (res.ok) {
+        const cloudData = await res.json();
+        if (cloudData && cloudData.profile) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(cloudData));
+          return cloudData;
+        }
+      }
+    } catch (e) {
+      // Offline or local server without /api route
+    }
+    return null;
   },
 
   // Reset to default resume data

@@ -456,12 +456,13 @@ function initActionButtons() {
       syncProfileFromInputs();
       syncSettingsFromInputs();
 
-      const success = window.DataManager.saveData(currentData);
-      if (success) {
-        showToast("✓ Changes saved successfully! Stored in browser.");
-      } else {
-        alert("Failed to save changes to storage.");
-      }
+      window.DataManager.saveData(currentData, (err, cloudRes) => {
+        if (cloudRes?.storage === 'cloudflare_d1') {
+          showToast("✓ Saved live to Cloudflare D1 Database!");
+        } else {
+          showToast("✓ Saved successfully to browser storage!");
+        }
+      });
     });
   }
 
