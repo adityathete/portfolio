@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Admin Portal | Aditya Thete</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#0B0F17',
+              card: '#111827',
+              emerald: '#10B981',
+              cyan: '#06B6D4'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body class="bg-[#0B0F17] text-gray-100 font-sans min-h-screen">
+
+  <!-- =========================================================================
+       AUTHENTICATION OVERLAY / MODAL
+  ========================================================================== -->
+  <div id="auth-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md px-4">
+    <div class="glass-panel max-w-md w-full p-8 rounded-2xl border border-white/10 text-center shadow-2xl">
+      <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mx-auto mb-4">
+        <i data-lucide="lock" class="w-7 h-7"></i>
+      </div>
+      <h2 class="text-2xl font-bold text-white mb-2">Portfolio Admin Access</h2>
+      <p class="text-xs text-gray-400 mb-6">Enter your security PIN to manage resume details, projects, and skills.</p>
+      
+      <div class="space-y-4">
+        <input type="password" id="pin-input" placeholder="Enter PIN (Default: aditya2026)" 
+               class="admin-input text-center text-lg tracking-widest font-mono" />
+        
+        <p id="auth-error" class="text-xs text-red-400 hidden">Incorrect PIN. Please try again.</p>
+
+        <button id="unlock-btn" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-gray-950 font-bold text-sm tracking-wide shadow-lg shadow-emerald-500/20 transition-all">
+          Unlock Admin Portal
+        </button>
+
+        <div class="pt-2">
+          <a href="index.html" class="text-xs text-gray-400 hover:text-emerald-400 font-mono transition-colors">
+            ← Return to Portfolio Website
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- =========================================================================
+       ADMIN MAIN INTERFACE
+  ========================================================================== -->
+  <div id="admin-main" class="hidden">
+    
+    <!-- Top Admin Header -->
+    <header class="sticky top-0 z-40 bg-[#0F172A]/90 backdrop-blur-lg border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-mono font-bold">
+            <i data-lucide="sliders" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h1 class="text-sm font-bold text-white">Aditya Thete • Admin Dashboard</h1>
+            <p class="text-[10px] font-mono text-emerald-400">Content Management & Live Sync</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="index.html" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-xs text-gray-300 hover:text-white border border-gray-700 transition-colors">
+            <i data-lucide="external-link" class="w-3.5 h-3.5 text-cyan-400"></i>
+            <span>View Live Site</span>
+          </a>
+
+          <button id="logout-btn" class="p-2 rounded-lg bg-gray-800 text-gray-400 hover:text-red-400 transition-colors" title="Lock / Logout">
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      
+      <!-- Action Toolbar Banner -->
+      <div class="glass-panel p-4 md:p-6 rounded-2xl mb-8 flex flex-col md:flex-row items-center justify-between gap-4 border border-emerald-500/30">
+        <div>
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <i data-lucide="save" class="w-4 h-4 text-emerald-400"></i>
+            <span>Save & Export Controls</span>
+          </h2>
+          <p class="text-xs text-gray-400 mt-1">
+            "Save Changes" persists updates in your browser. "Export data.json" downloads the file to commit or upload to your free host.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+          <button id="save-all-btn" class="flex-1 md:flex-none px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-gray-950 font-bold text-xs flex items-center justify-center gap-1.5 shadow-lg shadow-emerald-500/20">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            <span>Save Changes</span>
+          </button>
+
+          <button id="export-json-btn" class="flex-1 md:flex-none px-3.5 py-2 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/30 text-xs font-semibold flex items-center justify-center gap-1.5">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+            <span>Export data.json</span>
+          </button>
+
+          <label class="flex-1 md:flex-none px-3.5 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer">
+            <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+            <span>Import JSON</span>
+            <input type="file" id="import-json-input" accept=".json" class="hidden" />
+          </label>
+
+          <button id="reset-defaults-btn" class="px-3 py-2 rounded-xl bg-red-950/40 hover:bg-red-900/50 text-red-300 border border-red-500/30 text-xs font-semibold" title="Restore original resume data">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="flex overflow-x-auto border-b border-white/10 gap-2 mb-8 pb-1">
+        <button class="admin-tab-btn px-4 py-2.5 text-xs font-semibold rounded-lg border-b-2 border-emerald-500 text-emerald-400 bg-gray-800/60 flex items-center gap-2 whitespace-nowrap" data-target="tab-profile">
+          <i data-lucide="user" class="w-4 h-4"></i>
+          <span>Profile & Summary</span>
+        </button>
+
+        <button class="admin-tab-btn px-4 py-2.5 text-xs font-semibold rounded-lg border-b-2 border-transparent text-gray-400 hover:text-white flex items-center gap-2 whitespace-nowrap" data-target="tab-skills">
+          <i data-lucide="cpu" class="w-4 h-4"></i>
+          <span>Skills Matrix</span>
+        </button>
+
+        <button class="admin-tab-btn px-4 py-2.5 text-xs font-semibold rounded-lg border-b-2 border-transparent text-gray-400 hover:text-white flex items-center gap-2 whitespace-nowrap" data-target="tab-projects">
+          <i data-lucide="layers" class="w-4 h-4"></i>
+          <span>Projects</span>
+        </button>
+
+        <button class="admin-tab-btn px-4 py-2.5 text-xs font-semibold rounded-lg border-b-2 border-transparent text-gray-400 hover:text-white flex items-center gap-2 whitespace-nowrap" data-target="tab-experience">
+          <i data-lucide="briefcase" class="w-4 h-4"></i>
+          <span>Work Experience</span>
+        </button>
+
+        <button class="admin-tab-btn px-4 py-2.5 text-xs font-semibold rounded-lg border-b-2 border-transparent text-gray-400 hover:text-white flex items-center gap-2 whitespace-nowrap" data-target="tab-education">
+          <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+          <span>Education & Certs</span>
+        </button>
+
+        <button class="admin-tab-btn px-4 py-2.5 text-xs font-semibold rounded-lg border-b-2 border-transparent text-gray-400 hover:text-white flex items-center gap-2 whitespace-nowrap" data-target="tab-settings">
+          <i data-lucide="settings" class="w-4 h-4"></i>
+          <span>Settings & Security</span>
+        </button>
+      </div>
+
+
+      <!-- =====================================================================
+           TAB 1: PROFILE & SUMMARY
+      ====================================================================== -->
+      <section id="tab-profile" class="admin-panel-section space-y-6">
+        <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-6">
+          <h3 class="text-lg font-bold text-white border-b border-white/10 pb-3 flex items-center gap-2">
+            <i data-lucide="user-check" class="w-5 h-5 text-emerald-400"></i>
+            <span>Basic Personal & Contact Information</span>
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-gray-400 mb-1">Full Name</label>
+              <input type="text" id="prof-name" class="admin-input" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-400 mb-1">Professional Title</label>
+              <input type="text" id="prof-title" class="admin-input" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-gray-400 mb-1">Status Badge Text</label>
+              <input type="text" id="prof-badge" class="admin-input" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-400 mb-1">Email Address</label>
+              <input type="email" id="prof-email" class="admin-input" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-400 mb-1">Phone Number</label>
+              <input type="text" id="prof-phone" class="admin-input" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-gray-400 mb-1">Location</label>
+              <input type="text" id="prof-location" class="admin-input" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-400 mb-1">LinkedIn URL</label>
+              <input type="text" id="prof-linkedin" class="admin-input" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-400 mb-1">GitHub URL</label>
+              <input type="text" id="prof-github" class="admin-input" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-gray-400 mb-1">Professional Summary / Bio</label>
+            <textarea id="prof-summary" rows="4" class="admin-input leading-relaxed"></textarea>
+          </div>
+
+          <!-- Highlight Metrics Ribbon -->
+          <div class="pt-4 border-t border-white/10">
+            <h4 class="text-sm font-semibold text-white mb-3">Key Performance Metrics (Displayed in Hero Ribbon)</h4>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div>
+                <label class="block text-[11px] text-gray-400 mb-1">Years Experience</label>
+                <input type="text" id="prof-exp" class="admin-input text-center font-mono" placeholder="3+" />
+              </div>
+              <div>
+                <label class="block text-[11px] text-gray-400 mb-1">Model Accuracy / RAGAS</label>
+                <input type="text" id="prof-accuracy" class="admin-input text-center font-mono" placeholder="92%" />
+              </div>
+              <div>
+                <label class="block text-[11px] text-gray-400 mb-1">Projects Completed</label>
+                <input type="text" id="prof-projects-count" class="admin-input text-center font-mono" placeholder="10+" />
+              </div>
+              <div>
+                <label class="block text-[11px] text-gray-400 mb-1">Records Processed</label>
+                <input type="text" id="prof-records" class="admin-input text-center font-mono" placeholder="10k+" />
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- =====================================================================
+           TAB 2: SKILLS MATRIX
+      ====================================================================== -->
+      <section id="tab-skills" class="admin-panel-section hidden space-y-6">
+        <div class="flex justify-between items-center mb-4">
+          <p class="text-xs text-gray-400">Add, remove, or organize technical skills by category.</p>
+          <button type="button" onclick="addNewCategory()" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center gap-1.5">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            <span>Add Category</span>
+          </button>
+        </div>
+
+        <div id="skills-editor-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Rendered by admin.js -->
+        </div>
+      </section>
+
+
+      <!-- =====================================================================
+           TAB 3: PROJECTS
+      ====================================================================== -->
+      <section id="tab-projects" class="admin-panel-section hidden space-y-6">
+        <div class="flex justify-between items-center mb-4">
+          <p class="text-xs text-gray-400">Manage featured and production projects with tags, metrics, and highlights.</p>
+          <button type="button" onclick="addNewProject()" class="px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center gap-1.5">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            <span>Add New Project</span>
+          </button>
+        </div>
+
+        <div id="projects-editor-container" class="space-y-6">
+          <!-- Rendered by admin.js -->
+        </div>
+      </section>
+
+
+      <!-- =====================================================================
+           TAB 4: WORK EXPERIENCE
+      ====================================================================== -->
+      <section id="tab-experience" class="admin-panel-section hidden space-y-6">
+        <div class="flex justify-between items-center mb-4">
+          <p class="text-xs text-gray-400">Manage professional employment timeline and achievements.</p>
+          <button type="button" onclick="addNewExperience()" class="px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center gap-1.5">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            <span>Add New Experience</span>
+          </button>
+        </div>
+
+        <div id="experience-editor-container" class="space-y-6">
+          <!-- Rendered by admin.js -->
+        </div>
+      </section>
+
+
+      <!-- =====================================================================
+           TAB 5: EDUCATION & CERTIFICATIONS
+      ====================================================================== -->
+      <section id="tab-education" class="admin-panel-section hidden space-y-8">
+        
+        <!-- Degrees -->
+        <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-4">
+          <div class="flex justify-between items-center pb-3 border-b border-white/5">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="graduation-cap" class="w-5 h-5 text-cyan-400"></i>
+              <span>Academic Degrees</span>
+            </h3>
+            <button type="button" onclick="addNewEducation()" class="text-xs text-cyan-400 hover:text-cyan-300 font-semibold">
+              + Add Degree
+            </button>
+          </div>
+          <div id="education-editor-container" class="space-y-4">
+            <!-- Rendered by admin.js -->
+          </div>
+        </div>
+
+        <!-- Certifications -->
+        <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-4">
+          <div class="flex justify-between items-center pb-3 border-b border-white/5">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="award" class="w-5 h-5 text-emerald-400"></i>
+              <span>Industry Certifications</span>
+            </h3>
+            <button type="button" onclick="addNewCert()" class="text-xs text-emerald-400 hover:text-emerald-300 font-semibold">
+              + Add Certification
+            </button>
+          </div>
+          <div id="certs-editor-container" class="space-y-3">
+            <!-- Rendered by admin.js -->
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================================
+           TAB 6: SETTINGS & SECURITY
+      ====================================================================== -->
+      <section id="tab-settings" class="admin-panel-section hidden space-y-6">
+        <div class="glass-panel max-w-xl p-6 rounded-2xl border border-white/10 space-y-6">
+          <h3 class="text-base font-bold text-white border-b border-white/10 pb-3 flex items-center gap-2">
+            <i data-lucide="shield" class="w-5 h-5 text-emerald-400"></i>
+            <span>Admin PIN & Security</span>
+          </h3>
+
+          <div>
+            <label class="block text-xs font-medium text-gray-400 mb-1.5">Change Admin Access PIN</label>
+            <input type="text" id="setting-pin" class="admin-input font-mono text-sm max-w-xs" />
+            <p class="text-[11px] text-gray-500 mt-1">Remember this PIN to log into this panel later.</p>
+          </div>
+
+          <div class="pt-4 border-t border-white/10 text-xs text-gray-400 space-y-2">
+            <p>💡 <strong>Tip for Permanent Cloud Updates:</strong></p>
+            <p>Whenever you make changes here, click <strong>"Save Changes"</strong> to view them immediately in your browser. Then click <strong>"Export data.json"</strong> and replace the <code>data.json</code> file in your GitHub / Netlify folder so your updates are live for everyone across the world!</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- Application Scripts -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

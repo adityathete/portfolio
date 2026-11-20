@@ -1,0 +1,276 @@
+{
+  "profile": {
+    "name": "Aditya Thete",
+    "title": "Machine Learning & Generative AI Engineer",
+    "badge": "Open to GenAI & Agentic AI Roles",
+    "email": "adi.thete@gmail.com",
+    "phone": "+919766643001",
+    "location": "Maharashtra, India",
+    "linkedin": "https://linkedin.com/in/aditya-thete",
+    "github": "https://github.com/adityathete",
+    "summary": "Generative AI and Machine Learning Engineer with 3+ years of experience designing and deploying LLM-powered products, Retrieval Augmented Generation (RAG) architectures, and Agentic AI systems across Healthcare, Life Sciences, FMCG, and E-Commerce domains. Proficient in LangChain, LangGraph, GPT-4o, ChromaDB, Hugging Face, and Azure OpenAI, with a strong track record of building production-grade AI pipelines, integrating AI solutions with enterprise APIs and applications, and translating complex business requirements into scalable, impact-driven AI products.",
+    "yearsExperience": "3+",
+    "projectsCompleted": "10+",
+    "modelAccuracy": "92%",
+    "recordsProcessed": "10k+"
+  },
+  "skillCategories": [
+    {
+      "name": "Generative AI & Agentic Systems",
+      "icon": "bot",
+      "skills": [
+        "LangChain",
+        "LangGraph",
+        "CrewAI",
+        "Agentic AI",
+        "Agentic Workflows",
+        "Multi-Agent Systems",
+        "RAG Architectures",
+        "Prompt Engineering",
+        "Fine-Tuning",
+        "Tool Use (Function Calling)",
+        "Model Context Protocol (MCP)",
+        "Hugging Face"
+      ]
+    },
+    {
+      "name": "LLM Models & APIs",
+      "icon": "cpu",
+      "skills": [
+        "GPT-4o",
+        "Claude 3.5 Sonnet",
+        "Gemma 2",
+        "Llama 3",
+        "Mistral Large",
+        "BERT",
+        "OpenAI API"
+      ]
+    },
+    {
+      "name": "Vector Databases & Embeddings",
+      "icon": "database",
+      "skills": [
+        "ChromaDB",
+        "FAISS",
+        "AWS OpenSearch",
+        "AWS KnowledgeBase",
+        "Pinecone",
+        "OpenAI text-embedding-ada-002",
+        "all-MiniLM-L6-v2",
+        "Word2Vec",
+        "GloVe",
+        "TF-IDF"
+      ]
+    },
+    {
+      "name": "NLP & Semantic Search",
+      "icon": "search",
+      "skills": [
+        "NLTK",
+        "SpaCy",
+        "Named Entity Recognition (NER)",
+        "Tokenisation",
+        "Semantic Search",
+        "Text Classification",
+        "Vector Retrieval"
+      ]
+    },
+    {
+      "name": "Machine Learning & Deep Learning",
+      "icon": "layers",
+      "skills": [
+        "TensorFlow",
+        "Keras",
+        "PyTorch",
+        "RNNs",
+        "LSTMs",
+        "Attention Mechanisms",
+        "Transformers",
+        "Scikit-learn",
+        "Random Forest",
+        "XGBoost",
+        "EDA",
+        "Feature Engineering",
+        "Predictive Modelling"
+      ]
+    },
+    {
+      "name": "MLOps, Cloud & Tools",
+      "icon": "cloud",
+      "skills": [
+        "Python",
+        "C",
+        "MLflow",
+        "Docker",
+        "Kubernetes",
+        "Git",
+        "FastAPI",
+        "REST APIs",
+        "AWS (S3, EC2, Lambda, SageMaker, Bedrock)",
+        "Azure OpenAI",
+        "Azure AI Foundry",
+        "Azure Databricks",
+        "Jupyter Notebook",
+        "VS Code",
+        "Power BI",
+        "LlamaIndex"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "project-1",
+      "title": "Production RAG Chatbot for Medical Question Answering",
+      "category": "Generative AI",
+      "featured": true,
+      "tagline": "Enterprise RAG Pipeline with 92% Faithfulness Score on RAGAS",
+      "description": "Architected and deployed an end-to-end Medical RAG chatbot engineered for high accuracy, grounded medical document Q&A, and minimal hallucinations.",
+      "highlights": [
+        "Built end-to-end Medical RAG Chatbot using LangChain, ChromaDB, OpenAI text-embedding-ada-002, and GPT-4o.",
+        "Covered comprehensive pipeline: PDF ingestion, semantic chunking, Top-K vector retrieval, and FastAPI REST endpoint.",
+        "Reduced LLM hallucinations through targeted prompt engineering and retrieval tuning, achieving a 92% Faithfulness score on RAGAS benchmarks.",
+        "Deployed as a scalable, real-time inference service with persistent ChromaDB storage and low-latency API access."
+      ],
+      "tags": ["LangChain", "ChromaDB", "GPT-4o", "OpenAI Ada-002", "FastAPI", "RAGAS", "RAG"],
+      "metrics": "92% Faithfulness Score",
+      "github": "https://github.com/adityathete",
+      "demo": "https://github.com/adityathete"
+    },
+    {
+      "id": "project-2",
+      "title": "E-Commerce Complaint Classifier & Auto-Router",
+      "category": "NLP & Deep Learning",
+      "featured": true,
+      "tagline": "Automated Multi-Class Customer Issue Triaging with 90%+ Accuracy",
+      "description": "Engineered an intelligent customer support classification and routing system using deep learning LSTM to automate manual ticket routing entirely.",
+      "highlights": [
+        "Built multi-class NLP complaint classification system using TensorFlow LSTM with end-to-end data pipeline.",
+        "Engineered text cleaning, tokenisation, embeddings, sequence padding, and handled class imbalance.",
+        "Achieved 90%+ classification accuracy with confidence scoring across 6 complaint categories: Delivery, Billing, Refunds, Returns, Fulfillment, and Account Support.",
+        "Implemented automated complaint routing mapping each predicted category to its responsible business department, eliminating manual triaging effort."
+      ],
+      "tags": ["TensorFlow", "LSTM", "NLP", "Text Classification", "Embeddings", "Python"],
+      "metrics": "90%+ Accuracy across 6 Classes",
+      "github": "https://github.com/adityathete",
+      "demo": "https://github.com/adityathete"
+    },
+    {
+      "id": "project-3",
+      "title": "Employee Churn Prediction & Retention Analytics",
+      "category": "Machine Learning",
+      "featured": true,
+      "tagline": "Predictive Attrition Modeling with 90%+ ROC-AUC for Enterprise FMCG",
+      "description": "Developed an end-to-end ML predictive pipeline analyzing workforce attrition drivers and providing proactive retention strategies to executive stakeholders.",
+      "highlights": [
+        "Built end-to-end employee churn prediction system using Python, Scikit-learn, Random Forest, and XGBoost.",
+        "Executed extensive Exploratory Data Analysis (EDA), feature engineering, customer/employee segmentation, and predictive modeling.",
+        "Achieved 90%+ ROC-AUC accuracy with a 30% improvement in identifying high-risk employees for timely interventions.",
+        "Delivered actionable attrition insights directly to business stakeholders, supporting retention planning and long-term revenue preservation for an FMCG client."
+      ],
+      "tags": ["Scikit-learn", "XGBoost", "Random Forest", "EDA", "Feature Engineering", "Predictive Analytics"],
+      "metrics": "90%+ ROC-AUC | +30% High-Risk Detection",
+      "github": "https://github.com/adityathete",
+      "demo": "https://github.com/adityathete"
+    }
+  ],
+  "experience": [
+    {
+      "id": "exp-1",
+      "role": "Generative AI Consultant",
+      "company": "Techknomatic Pvt Ltd",
+      "period": "Jun 2025 – Present",
+      "location": "India",
+      "type": "Full-Time",
+      "bullets": [
+        "Designing and delivering enterprise AI consulting solutions using LangChain and LangGraph — building end-to-end RAG pipelines, autonomous AI agents, and multi-step agentic workflows tailored to specific client business requirements.",
+        "Implementing production-grade RAG architectures with vector database integration (ChromaDB, Pinecone, FAISS), prompt engineering optimisation, and LLM fine-tuning to improve response accuracy, reduce hallucinations, and ensure reliable outputs in client-facing AI applications.",
+        "Integrating AI solutions with client APIs, enterprise applications, and cloud platforms (AWS/Azure), ensuring scalable, production-ready deployments while collaborating with cross-functional stakeholders to translate complex business needs into practical, measurable AI outcomes."
+      ],
+      "tags": ["LangChain", "LangGraph", "Autonomous Agents", "RAG", "ChromaDB", "Pinecone", "AWS", "Azure"]
+    },
+    {
+      "id": "exp-2",
+      "role": "Generative AI Engineer (Associate)",
+      "company": "Restaverse Pvt Ltd",
+      "period": "Mar 2025 – May 2025",
+      "location": "India",
+      "type": "Full-Time",
+      "bullets": [
+        "Contributed to building a RAG-based knowledge retrieval system designed to improve access to operational and marketing information for restaurant and cloud kitchen businesses.",
+        "Engineered end-to-end document ingestion, embedding generation, and vector database pipelines using ChromaDB and semantic search techniques for accurate and scalable information retrieval.",
+        "Collaborated closely with business stakeholders to gather requirements, validate system outputs, and support the end-to-end implementation of Generative AI solutions in a production environment."
+      ],
+      "tags": ["Generative AI", "RAG", "ChromaDB", "Embeddings", "Semantic Search", "Document Ingestion"]
+    },
+    {
+      "id": "exp-3",
+      "role": "Junior Machine Learning Engineer",
+      "company": "Loopway Pvt Ltd",
+      "period": "Jan 2023 – Feb 2025",
+      "location": "India",
+      "type": "Full-Time",
+      "bullets": [
+        "Designed and delivered 5+ Machine Learning, NLP, and LLM-based solutions for enterprise clients across Healthcare, Automotive, and Analytics domains, translating complex business requirements into production-ready AI products.",
+        "Built and maintained end-to-end AI pipelines covering data preprocessing, feature engineering, model training, evaluation, deployment, and monitoring using Python and AWS cloud technologies, reducing average model deployment time by ~30%.",
+        "Worked closely with clients and cross-functional teams across 3+ concurrent projects to ensure solutions were scalable, reliable, and aligned with real business outcomes."
+      ],
+      "tags": ["Machine Learning", "NLP", "Python", "AWS", "ML Pipelines", "Docker", "Model Monitoring"]
+    },
+    {
+      "id": "exp-4",
+      "role": "Data Science Associate",
+      "company": "The Math Company",
+      "period": "May 2022 – Jan 2023",
+      "location": "India",
+      "type": "Full-Time",
+      "bullets": [
+        "Developed machine learning models to predict employee churn and identify key attrition drivers using HR and performance data, achieving 88%+ accuracy and improving high-risk identification by 30%.",
+        "Performed in-depth EDA and feature engineering on 10,000+ employee records to uncover behavioural patterns contributing to attrition.",
+        "Presented findings and model outputs to senior stakeholders, directly informing data-driven HR retention strategies at the organisational level."
+      ],
+      "tags": ["Data Science", "Scikit-Learn", "Predictive Modeling", "EDA", "HR Analytics", "Feature Engineering"]
+    }
+  ],
+  "education": [
+    {
+      "degree": "MBA in Business Analytics",
+      "institution": "University of Pune",
+      "year": "2023",
+      "details": "Specialized in data-driven business strategy, predictive modeling, statistical analysis, and enterprise analytics."
+    },
+    {
+      "degree": "Bachelor of Engineering",
+      "institution": "University of Pune",
+      "year": "2016",
+      "details": "Foundational training in computer programming, algorithms, mathematics, and engineering problem solving."
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Prompt Engineering for Developers",
+      "issuer": "DeepLearning.AI",
+      "badge": "GenAI"
+    },
+    {
+      "title": "Claude Platform 101",
+      "issuer": "Anthropic",
+      "badge": "LLM & API"
+    },
+    {
+      "title": "Claude Cowork",
+      "issuer": "Anthropic",
+      "badge": "Agentic AI"
+    },
+    {
+      "title": "Data Science Bootcamp",
+      "issuer": "Udemy",
+      "badge": "Machine Learning"
+    }
+  ],
+  "settings": {
+    "adminPin": "aditya2026",
+    "theme": "dark",
+    "accentColor": "emerald",
+    "enableAiChat": true
+  }
+}

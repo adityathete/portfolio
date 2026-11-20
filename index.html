@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aditya Thete | Machine Learning & Generative AI Engineer</title>
+  <meta name="description" content="Portfolio of Aditya Thete - Machine Learning & Generative AI Engineer specializing in RAG architectures, Agentic AI, LLMs, and Production ML Pipelines." />
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#0B0F17',
+              card: '#111827',
+              emerald: '#10B981',
+              cyan: '#06B6D4',
+              purple: '#8B5CF6'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body class="bg-[#0B0F17] text-gray-100 font-sans selection:bg-emerald-500 selection:text-black relative">
+
+  <!-- Canvas for Neural Particle Network in background -->
+  <canvas id="neural-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+
+  <!-- Top Ambient Glow Blobs -->
+  <div class="hero-gradient-blob w-96 h-96 bg-emerald-600/30 top-10 left-10"></div>
+  <div class="hero-gradient-blob w-96 h-96 bg-cyan-600/20 top-40 right-10"></div>
+  <div class="hero-gradient-blob w-96 h-96 bg-purple-600/15 bottom-1/3 left-1/4"></div>
+
+  <!-- =========================================================================
+       NAVIGATION BAR
+  ========================================================================== -->
+  <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#0B0F17]/80 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-2 group">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-emerald-500 to-cyan-500 flex items-center justify-center text-black font-mono font-bold text-lg shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform">
+          AT
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold text-sm tracking-wide text-white group-hover:text-emerald-400 transition-colors">Aditya Thete</span>
+          <span class="text-[10px] font-mono text-emerald-400">GenAI & ML Engineer</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-gray-300">
+        <a href="#about" class="hover:text-emerald-400 transition-colors">About</a>
+        <a href="#skills" class="hover:text-emerald-400 transition-colors">Skills</a>
+        <a href="#projects" class="hover:text-emerald-400 transition-colors">Projects</a>
+        <a href="#experience" class="hover:text-emerald-400 transition-colors">Experience</a>
+        <a href="#ai-assistant" class="hover:text-cyan-400 flex items-center gap-1.5 transition-colors">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+          Ask AI
+        </a>
+        <a href="#contact" class="hover:text-emerald-400 transition-colors">Contact</a>
+      </nav>
+
+      <!-- Right Action Buttons -->
+      <div class="hidden md:flex items-center gap-3">
+        <a href="admin.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-medium rounded-lg bg-gray-800/80 text-gray-300 border border-gray-700 hover:border-emerald-500/50 hover:text-white transition-all">
+          <i data-lucide="settings" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span>Admin</span>
+        </a>
+        <a href="#contact" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-gray-950 font-semibold text-xs tracking-wide shadow-lg shadow-emerald-500/20 transition-all hover:scale-105">
+          <i data-lucide="send" class="w-3.5 h-3.5"></i>
+          <span>Get in Touch</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="flex md:hidden items-center gap-2">
+        <a href="admin.html" class="p-2 text-gray-400 hover:text-emerald-400">
+          <i data-lucide="settings" class="w-5 h-5"></i>
+        </a>
+        <button id="mobile-menu-btn" class="p-2 rounded-lg bg-gray-800 text-gray-300 hover:text-white focus:outline-none">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-nav" class="hidden md:hidden bg-[#0F172A] border-b border-gray-800 px-4 py-4 space-y-3">
+      <a href="#about" class="block text-sm py-1.5 text-gray-300 hover:text-emerald-400">About</a>
+      <a href="#skills" class="block text-sm py-1.5 text-gray-300 hover:text-emerald-400">Skills</a>
+      <a href="#projects" class="block text-sm py-1.5 text-gray-300 hover:text-emerald-400">Projects</a>
+      <a href="#experience" class="block text-sm py-1.5 text-gray-300 hover:text-emerald-400">Experience</a>
+      <a href="#ai-assistant" class="block text-sm py-1.5 text-cyan-400 font-semibold flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span> Ask AI Assistant
+      </a>
+      <a href="#contact" class="block text-sm py-1.5 text-gray-300 hover:text-emerald-400">Contact</a>
+    </div>
+  </header>
+
+
+  <!-- =========================================================================
+       HERO SECTION
+  ========================================================================== -->
+  <section id="about" class="relative z-10 pt-16 pb-20 md:pt-24 md:pb-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+
+        <!-- Status Availability Pill -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-medium mb-6">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span id="hero-badge">Open to GenAI & Agentic AI Roles</span>
+        </div>
+
+        <!-- Main Title & Typing Headline -->
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight mb-4">
+          Hi, I'm <span id="hero-name" class="text-gradient">Aditya Thete</span>
+        </h1>
+
+        <div class="text-xl sm:text-2xl md:text-3xl font-mono font-semibold text-gray-300 mb-6 flex items-center flex-wrap gap-2">
+          <span>I architect</span>
+          <span class="text-cyan-400" id="hero-typing">Generative AI Systems</span>
+          <span class="typing-caret"></span>
+        </div>
+
+        <!-- Summary Paragraph -->
+        <p id="hero-summary" class="text-base sm:text-lg text-gray-300 leading-relaxed mb-8 max-w-2xl">
+          Generative AI and Machine Learning Engineer with 3+ years of experience designing and deploying LLM-powered products, Retrieval Augmented Generation (RAG) architectures, and Agentic AI systems across Healthcare, Life Sciences, FMCG, and E-Commerce domains.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap items-center gap-4 mb-12">
+          <a href="#projects" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-gray-950 font-bold text-sm shadow-xl shadow-emerald-500/20 transition-all hover:scale-105">
+            <i data-lucide="layers" class="w-4 h-4"></i>
+            <span>Explore Projects</span>
+          </a>
+
+          <a href="#ai-assistant" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gray-800/90 hover:bg-gray-700 text-cyan-300 border border-cyan-500/30 font-semibold text-sm transition-all hover:scale-105">
+            <i data-lucide="bot" class="w-4 h-4 text-cyan-400"></i>
+            <span>Ask My AI Persona</span>
+          </a>
+
+          <a href="mailto:adi.thete@gmail.com" id="hero-email-btn" class="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 font-medium text-sm transition-all">
+            <i data-lucide="mail" class="w-4 h-4 text-emerald-400"></i>
+            <span>Email Me</span>
+          </a>
+        </div>
+
+        <!-- Social Proof & External Links -->
+        <div class="flex items-center gap-4 text-sm text-gray-400 font-mono">
+          <span>Connect:</span>
+          <a href="https://github.com/adityathete" id="hero-github-btn" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-gray-900 border border-gray-800 hover:border-emerald-500 text-gray-300 hover:text-emerald-400 transition-colors" title="GitHub">
+            <i data-lucide="github" class="w-4 h-4"></i>
+          </a>
+          <a href="https://linkedin.com/in/aditya-thete" id="hero-linkedin-btn" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-gray-900 border border-gray-800 hover:border-emerald-500 text-gray-300 hover:text-emerald-400 transition-colors" title="LinkedIn">
+            <i data-lucide="linkedin" class="w-4 h-4"></i>
+          </a>
+          <span class="text-xs text-gray-500">• Maharashtra, India</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       METRICS / STATS RIBBON
+  ========================================================================== -->
+  <section class="relative z-10 border-y border-white/10 bg-gray-950/60 backdrop-blur-md py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        
+        <div class="p-4">
+          <div class="text-3xl md:text-4xl font-extrabold font-mono text-emerald-400 mb-1" id="stat-exp">3+</div>
+          <div class="text-xs font-medium text-gray-400 uppercase tracking-wider">Years Experience</div>
+        </div>
+
+        <div class="p-4">
+          <div class="text-3xl md:text-4xl font-extrabold font-mono text-cyan-400 mb-1" id="stat-accuracy">92%</div>
+          <div class="text-xs font-medium text-gray-400 uppercase tracking-wider">RAGAS Faithfulness</div>
+        </div>
+
+        <div class="p-4">
+          <div class="text-3xl md:text-4xl font-extrabold font-mono text-purple-400 mb-1" id="stat-projects">10+</div>
+          <div class="text-xs font-medium text-gray-400 uppercase tracking-wider">AI / ML Projects</div>
+        </div>
+
+        <div class="p-4">
+          <div class="text-3xl md:text-4xl font-extrabold font-mono text-emerald-400 mb-1" id="stat-records">10k+</div>
+          <div class="text-xs font-medium text-gray-400 uppercase tracking-wider">Records Analyzed</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       TECHNICAL SKILLS SECTION
+  ========================================================================== -->
+  <section id="skills" class="relative z-10 py-20 bg-grid-pattern">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-3">
+          <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+          <span>Competency Matrix</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold text-white tracking-tight mb-4">
+          Technical Skills & Technologies
+        </h2>
+        <p class="text-gray-400 text-sm md:text-base">
+          Proven tech stack spanning Generative AI frameworks, LLM orchestrations, Vector Databases, MLOps, and Deep Learning pipelines.
+        </p>
+      </div>
+
+      <!-- Skills Grid (Populated dynamically) -->
+      <div id="skills-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered by main.js -->
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       FEATURED PROJECTS SECTION
+  ========================================================================== -->
+  <section id="projects" class="relative z-10 py-20 bg-black/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-3">
+            <i data-lucide="code" class="w-3.5 h-3.5"></i>
+            <span>Production Systems</span>
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold text-white tracking-tight">
+            Key AI & ML Projects
+          </h2>
+          <p class="text-gray-400 text-sm mt-2 max-w-xl">
+            Real-world architectures deployed for healthcare question answering, automated customer complaint routing, and enterprise attrition forecasting.
+          </p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap gap-2">
+          <button class="project-filter-btn px-4 py-2 rounded-xl text-xs font-medium bg-emerald-500 text-black border border-emerald-400 transition-all" data-filter="all">
+            All Projects
+          </button>
+          <button class="project-filter-btn px-4 py-2 rounded-xl text-xs font-medium bg-gray-800/80 text-gray-300 border border-gray-700 hover:border-gray-500 transition-all" data-filter="Generative AI">
+            Generative AI
+          </button>
+          <button class="project-filter-btn px-4 py-2 rounded-xl text-xs font-medium bg-gray-800/80 text-gray-300 border border-gray-700 hover:border-gray-500 transition-all" data-filter="NLP">
+            NLP & Deep Learning
+          </button>
+          <button class="project-filter-btn px-4 py-2 rounded-xl text-xs font-medium bg-gray-800/80 text-gray-300 border border-gray-700 hover:border-gray-500 transition-all" data-filter="Machine Learning">
+            Machine Learning
+          </button>
+        </div>
+      </div>
+
+      <!-- Projects Grid (Populated dynamically) -->
+      <div id="projects-grid" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Rendered by main.js -->
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       WORK EXPERIENCE TIMELINE
+  ========================================================================== -->
+  <section id="experience" class="relative z-10 py-20 bg-grid-pattern">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-3">
+          <i data-lucide="briefcase" class="w-3.5 h-3.5"></i>
+          <span>Track Record</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold text-white tracking-tight mb-4">
+          Professional Experience
+        </h2>
+        <p class="text-gray-400 text-sm md:text-base">
+          3+ years designing and scaling production GenAI applications, enterprise RAG solutions, and machine learning pipelines.
+        </p>
+      </div>
+
+      <!-- Timeline Container -->
+      <div class="relative">
+        <div class="timeline-stem"></div>
+        <div id="experience-timeline" class="space-y-6">
+          <!-- Rendered by main.js -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       EDUCATION & CERTIFICATIONS
+  ========================================================================== -->
+  <section class="relative z-10 py-20 bg-black/40 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        
+        <!-- Education Column -->
+        <div>
+          <div class="flex items-center gap-3 mb-8">
+            <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+              <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold text-white">Education</h3>
+              <p class="text-xs text-gray-400">Academic background in business analytics & engineering</p>
+            </div>
+          </div>
+
+          <div id="education-list" class="space-y-4">
+            <!-- Rendered by main.js -->
+          </div>
+        </div>
+
+        <!-- Certifications Column -->
+        <div>
+          <div class="flex items-center gap-3 mb-8">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+              <i data-lucide="award" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold text-white">Certifications</h3>
+              <p class="text-xs text-gray-400">Industry verified credentials in GenAI and LLM platforms</p>
+            </div>
+          </div>
+
+          <div id="certs-grid" class="space-y-3">
+            <!-- Rendered by main.js -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       AI ASSISTANT SIMULATOR ("Ask AI About Aditya")
+  ========================================================================== -->
+  <section id="ai-assistant" class="relative z-10 py-20 bg-gradient-to-b from-[#0B0F17] via-[#0D1524] to-[#0B0F17]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-10">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-medium mb-3">
+          <i data-lucide="bot" class="w-4 h-4"></i>
+          <span>Interactive GenAI Demo</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-3">
+          Ask My AI Persona
+        </h2>
+        <p class="text-gray-400 text-sm max-w-xl mx-auto">
+          Test an interactive simulated assistant grounded in Aditya's technical resume, RAG architecture projects, and work history.
+        </p>
+      </div>
+
+      <!-- Terminal Window -->
+      <div class="terminal-window overflow-hidden">
+        <!-- Terminal Header -->
+        <div class="terminal-header">
+          <div class="flex items-center">
+            <span class="terminal-dot bg-red-500"></span>
+            <span class="terminal-dot bg-yellow-500"></span>
+            <span class="terminal-dot bg-green-500"></span>
+            <span class="text-xs font-mono text-gray-400 ml-2">aditya-rag-agent-v1.0.py</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs font-mono text-emerald-400">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>RAG Engine Online</span>
+          </div>
+        </div>
+
+        <!-- Chat Output Messages Container -->
+        <div id="chat-messages" class="p-6 space-y-4 max-h-[380px] overflow-y-auto">
+          <!-- Initial Welcome Message from AI -->
+          <div class="flex gap-3 justify-start">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 flex-shrink-0">
+              <i data-lucide="bot" class="w-4 h-4"></i>
+            </div>
+            <div class="max-w-[85%] rounded-2xl rounded-tl-none p-4 bg-gray-800/90 text-gray-200 border border-white/10 text-xs md:text-sm leading-relaxed shadow-lg">
+              Hello! I'm Aditya's AI Representative. You can ask me anything about his experience in <strong>Generative AI</strong>, <strong>RAG Architectures</strong>, <strong>LangGraph agents</strong>, or his <strong>medical question answering chatbot</strong>!
+            </div>
+          </div>
+        </div>
+
+        <!-- Suggested Prompt Chips -->
+        <div class="px-6 py-3 bg-gray-950/70 border-t border-white/5 flex flex-wrap gap-2 items-center text-xs">
+          <span class="text-gray-500 font-mono">Suggested queries:</span>
+          <button class="chat-chip px-2.5 py-1 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-cyan-300 transition-colors border border-gray-700" data-q="Tell me about Aditya's medical RAG chatbot project">
+            Medical RAG Project
+          </button>
+          <button class="chat-chip px-2.5 py-1 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-cyan-300 transition-colors border border-gray-700" data-q="What is his experience with LangGraph and agentic workflows?">
+            LangGraph & Agents
+          </button>
+          <button class="chat-chip px-2.5 py-1 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-cyan-300 transition-colors border border-gray-700" data-q="What is Aditya's tech stack for GenAI?">
+            GenAI Stack
+          </button>
+          <button class="chat-chip px-2.5 py-1 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-cyan-300 transition-colors border border-gray-700" data-q="How can I contact or hire Aditya?">
+            Contact & Hire
+          </button>
+        </div>
+
+        <!-- Input Query Box -->
+        <form id="chat-form" class="p-4 bg-gray-900/90 border-t border-white/10 flex gap-2">
+          <input type="text" id="chat-input" placeholder="Ask a question about Aditya's AI background..." 
+                 class="flex-1 bg-gray-950 border border-gray-700 rounded-xl px-4 py-2.5 text-xs md:text-sm text-white focus:outline-none focus:border-emerald-500 font-mono" />
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-gray-950 font-bold text-xs flex items-center gap-1.5 transition-all">
+            <span>Send</span>
+            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+          </button>
+        </form>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       CONTACT SECTION
+  ========================================================================== -->
+  <section id="contact" class="relative z-10 py-20 bg-[#0B0F17]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-3">
+          <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+          <span>Get in Touch</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold text-white tracking-tight mb-4">
+          Let's Build Impactful AI Systems
+        </h2>
+        <p class="text-gray-400 text-sm md:text-base">
+          Whether you're hiring for a Generative AI / ML role, planning an enterprise RAG system, or want to discuss agentic workflows, feel free to reach out.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Contact Information Cards -->
+        <div class="space-y-4">
+          
+          <a href="mailto:adi.thete@gmail.com" id="contact-direct-email-card" class="glass-panel p-6 rounded-2xl block group hover:border-emerald-500/40 transition-all">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                <i data-lucide="mail" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <div class="text-xs text-gray-400 font-mono">Email Address</div>
+                <div class="text-sm font-semibold text-white group-hover:text-emerald-400 transition-colors" id="contact-direct-email">
+                  adi.thete@gmail.com
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <a href="tel:+919766643001" id="contact-direct-phone-card" class="glass-panel p-6 rounded-2xl block group hover:border-cyan-500/40 transition-all">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
+                <i data-lucide="phone" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <div class="text-xs text-gray-400 font-mono">Phone / WhatsApp</div>
+                <div class="text-sm font-semibold text-white group-hover:text-cyan-400 transition-colors" id="contact-direct-phone">
+                  +919766643001
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <div class="glass-panel p-6 rounded-2xl">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
+                <i data-lucide="map-pin" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <div class="text-xs text-gray-400 font-mono">Location</div>
+                <div class="text-sm font-semibold text-white" id="contact-direct-location">
+                  Maharashtra, India
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Links -->
+          <div class="glass-panel p-6 rounded-2xl flex items-center justify-between">
+            <span class="text-xs text-gray-400 font-mono">Social Profiles:</span>
+            <div class="flex items-center gap-3">
+              <a href="https://linkedin.com/in/aditya-thete" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl bg-gray-800 text-gray-300 hover:text-emerald-400 hover:border-emerald-500/50 border border-gray-700 transition-all">
+                <i data-lucide="linkedin" class="w-5 h-5"></i>
+              </a>
+              <a href="https://github.com/adityathete" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl bg-gray-800 text-gray-300 hover:text-cyan-400 hover:border-cyan-500/50 border border-gray-700 transition-all">
+                <i data-lucide="github" class="w-5 h-5"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Interactive Contact Form -->
+        <div class="lg:col-span-2 glass-panel p-8 rounded-2xl border border-white/10">
+          <form id="contact-form" class="space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-xs font-mono text-gray-400 mb-1.5">Your Name *</label>
+                <input type="text" id="form-name" required placeholder="Jane Doe" 
+                       class="admin-input text-sm" />
+              </div>
+              <div>
+                <label class="block text-xs font-mono text-gray-400 mb-1.5">Your Email *</label>
+                <input type="email" id="form-email" required placeholder="jane@company.com" 
+                       class="admin-input text-sm" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-gray-400 mb-1.5">Subject</label>
+              <input type="text" id="form-subject" placeholder="Opportunity: Senior GenAI Engineer Role" 
+                     class="admin-input text-sm" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-gray-400 mb-1.5">Message *</label>
+              <textarea id="form-message" rows="4" required placeholder="Hi Aditya, I came across your portfolio and would love to discuss..." 
+                        class="admin-input text-sm"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-gray-950 font-bold text-sm tracking-wide shadow-xl shadow-emerald-500/20 transition-all flex items-center justify-center gap-2">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>Send Direct Message</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       FOOTER
+  ========================================================================== -->
+  <footer class="relative z-10 border-t border-white/10 bg-black/80 py-10 text-xs text-gray-500 font-mono">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        © 2026 Aditya Thete. All rights reserved.
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="#about" class="hover:text-emerald-400 transition-colors">Back to Top ↑</a>
+        <a href="admin.html" class="hover:text-cyan-400 flex items-center gap-1 transition-colors">
+          <i data-lucide="lock" class="w-3 h-3"></i>
+          <span>Admin Portal</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Quick Admin Gear -->
+  <a href="admin.html" class="admin-gear-btn w-12 h-12 rounded-full bg-emerald-500 text-gray-950 flex items-center justify-center font-bold shadow-xl shadow-emerald-500/30 border-2 border-emerald-300" title="Manage Portfolio (Admin Panel)">
+    <i data-lucide="settings" class="w-6 h-6"></i>
+  </a>
+
+  <!-- Application Scripts -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
